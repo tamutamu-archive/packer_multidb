@@ -2,7 +2,7 @@
 #
 # H2: database control script
 #
-# chkconfig: 345 87 13
+# chkconfig: 
 # description: H2 database startup script
 # processname: h2
 # pidfile: /var/run/h2/h2.pid
