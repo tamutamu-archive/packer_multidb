@@ -6,6 +6,10 @@
       "destination": "/tmp"
     },
     {
+      "type": "shell-local",
+      "command": "echo test1"
+    },
+    {
       "type": "shell",
       "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
       "override": {
@@ -37,7 +41,7 @@
         "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
       ],
       "boot_wait": "10s",
-      "disk_size": 20520,
+      "disk_size": 73520,
       "guest_os_type": "RedHat_64",
       "headless": false,
       "http_directory": "http",
@@ -48,14 +52,14 @@
       "ssh_password": "vagrant",
       "ssh_port": 22,
       "ssh_pty": "true",
-      "ssh_wait_timeout": "10000s",
+      "ssh_wait_timeout": "100000s",
       "shutdown_command": "echo '/sbin/halt -h -p' > /tmp/shutdown.sh; echo 'vagrant'|sudo -S sh '/tmp/shutdown.sh'",
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "virtualbox_version_file": ".vbox_version",
       "vboxmanage": [
         ["modifyvm", "{{.Name}}", "--nic1", "nat"],
-        [ "modifyvm", "{{.Name}}", "--memory", "700" ],
-        [ "modifyvm", "{{.Name}}", "--cpus", "1" ]
+        [ "modifyvm", "{{.Name}}", "--memory", "1400" ],
+        [ "modifyvm", "{{.Name}}", "--cpus", "3" ]
       ]
     }
   ]

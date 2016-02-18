@@ -26,5 +26,8 @@ systemctl start postgresql-9.4.service
 
 
 # create db
-sed -f $BASEDIR/sed_createdb.lst $CURDIR/createdb.sql.tmpl > $CURDIR/createdb.sql
-sudo psql -U postgres < $CURDIR/createdb.sql
+sed -f $BASEDIR/sed_createdb.lst $CURDIR/conf/createdb.sql.tmpl > $CURDIR/conf/createdb.sql
+sudo psql -U postgres < $CURDIR/conf/createdb.sql
+
+systemctl stop postgresql-9.4.service
+systemctl disable postgresql-9.4.service
