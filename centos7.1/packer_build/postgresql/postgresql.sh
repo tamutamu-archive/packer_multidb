@@ -29,5 +29,8 @@ systemctl start postgresql-9.4.service
 sed -f $BASEDIR/sed_createdb.lst $CURDIR/conf/createdb.sql.tmpl > $CURDIR/conf/createdb.sql
 sudo psql -U postgres < $CURDIR/conf/createdb.sql
 
+# remote access setting
+sudo psql -U postgres -c "ALTER USER postgres with encrypted password '$POSTGRESQL_ROOT_PASSWORD';"
+
 systemctl stop postgresql-9.4.service
 systemctl disable postgresql-9.4.service
