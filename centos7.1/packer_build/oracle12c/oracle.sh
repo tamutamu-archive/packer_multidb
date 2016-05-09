@@ -46,4 +46,12 @@ su - oracle -c ". /etc/profile.d/oracle.sh && dbca -silent -responseFile /opt/or
 rm -rf /opt/database
 
 cp $CURDIR/conf/initd/oracle /etc/init.d
+chmod a+x /etc/init.d/oracle
+systemctl enable oracle
 systemctl disable oracle
+
+sed -i -e "s/dbhome_1:N/dbhome_1:Y/" /etc/oratab
+
+
+### Clean up
+rm $CURDIR/install/*.* -f

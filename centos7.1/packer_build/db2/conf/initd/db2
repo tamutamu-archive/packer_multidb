@@ -1,0 +1,56 @@
+#!/bin/sh
+# chkconfig: 35 97 02
+# description: Start and Stop IBM's db2 dbms.
+
+BASE=/opt/ibm/db2
+VERSION=V10.5
+
+INSTANCE=/home/db2inst1
+
+# Set the path.
+PATH=/sbin:/bin:/usr/bin:/usr/sbin
+
+. /etc/rc.d/init.d/functions
+
+# Check we have the start and stop programs.
+test -x $INSTANCE/sqllib/adm/db2start || exit 0
+test -x $INSTANCE/sqllib/adm/db2stop || exit 0
+test -x $BASE/$VERSION/bin/db2 || exit 0
+
+case "$1" in
+start)
+    # Check if IBMdb2 not already running
+    if [ ! -f /var/lock/subsys/IBMdb2 ]; then
+	echo -n 'Starting IBMdb2 daemons: '
+	su - db2inst1 -c $INSTANCE/sqllib/adm/db2start
+	echo
+	touch /var/lock/subsys/IBMdb2
+    fi
+    ;;
+stop)
+    # We first try twice to kill all existing applications.
+    # There really should be none most of the time.
+    echo 'Stopping IBMdb2 daemons: '
+    su - db2inst1 -c "$BASE/$VERSION/bin/db2 FORCE APPLICATION ALL"
+    sleep 2
+    su - db2inst1 -c "$BASE/$VERSION/bin/db2 FORCE APPLICATION ALL"
+    sleep 2
+    su - db2inst1 -c $INSTANCE/sqllib/adm/db2stop
+    echo
+    rm -f /var/lock/subsys/IBMdb2
+    ;;
+reload|restart)
+    $0 stop
+    sleep 3
+    $0 start
+    ;;
+*)
+    echo "Usage: /etc/rc.d/init.d/IBMdb2 {start|stop|restart|reload}"
+    exit 1
+esac
+
+#-----------------------------------------------------------------------
+# Exit successfully.
+#-----------------------------------------------------------------------
+exit 0
+
