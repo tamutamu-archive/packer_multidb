@@ -2,10 +2,10 @@
 #
 # H2: database control script
 #
-# chkconfig: 
-# description: H2 database startup script
-# processname: h2
-# pidfile: /var/run/h2/h2.pid
+#chkconfig: 345 85 15
+#description: H2 database startup script
+#processname: h2
+#pidfile: /var/run/h2/h2.pid
 #
 
 export H2_HOME=/var/lib/h2
@@ -37,7 +37,7 @@ start () {
      mkdir -p $(dirname $H2_PIDFILE)
      chown $H2_USER $(dirname $H2_PIDFILE) || true
 
-     su - $H2_USER -c "java -cp $H2_HOME/bin/h2*.jar $JVM_OPTS org.h2.tools.Server -tcp -baseDir $H2_BASEDIR" >> $H2_CONSOLE_LOG 2>&1 &
+     su - $H2_USER -c "java -cp $H2_HOME/bin/h2*.jar $JVM_OPTS org.h2.tools.Server -webAllowOthers -tcpAllowOthers -baseDir $H2_BASEDIR" >> $H2_CONSOLE_LOG 2>&1 &
 
      echo $! > $H2_PIDFILE
      sleep 3

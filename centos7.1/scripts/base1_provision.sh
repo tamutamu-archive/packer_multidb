@@ -2,7 +2,7 @@
 
 ### copy provisoning scripts
 mkdir -p /var/packer_build/
-cp -rf /tmp/packer_build /var/
+mv /tmp/packer_build /var/
 cd /var/packer_build
 find ./ -name '*.sh' -type f -print | xargs chmod 777
 

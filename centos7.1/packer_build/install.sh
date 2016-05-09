@@ -21,6 +21,8 @@ bash -l $BASEDIR/java/java_dev.sh
 bash -l $BASEDIR/h2/h2.sh
 bash -l $BASEDIR/mysql/mysql.sh
 bash -l $BASEDIR/postgresql/postgresql.sh
+bash -l $BASEDIR/db2/db2.sh
+bash -l $BASEDIR/oracle12c/oracle.sh
 
 
 # terminate
