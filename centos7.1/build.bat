@@ -5,5 +5,5 @@ packer build template.json > build.log 2>&1
   echo "ÉGÉâÅ[ÅI"
 ) else (
   vagrant box add --force multidb multidb.box
-  rm multidb.box
+  del /Q multidb.box
 )
