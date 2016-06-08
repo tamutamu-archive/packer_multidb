@@ -1,3 +1,5 @@
+. ../settings.conf
+
 yum install -y wget zip unzip
 CURDIR=$(cd $(dirname $0); pwd)
 
@@ -32,24 +34,20 @@ EOT
 echo "export ORACLE_SID=$DATABASE" >> /etc/profile.d/oracle.sh
 
 
-rm -rf /opt/database
-
 cp $CURDIR/conf/initd/oracle /etc/init.d
 chmod a+x /etc/init.d/oracle
 systemctl enable oracle
 systemctl disable oracle
 
-sed -i -e "s/dbhome_1:N/dbhome_1:Y/" /etc/oratab
 
-
-### Clean up
-## rm $CURDIR/install/*.* -f
-
-JRE_LOC="$(cd $(cd $(dirname $(readlink -e `which java`));pwd)/../;pwd)"
-
-
-cat << EOT > /opt/database/ora_inst_jpn.sh
-./runInstaller -jreLoc $JRE_LOC
+cat << EOT > /opt/database/ora_inst.sh
+export LANG=c
+./runInstaller
 EOT
 
-chdmo a+x /opt/database/ora_inst_jpn.sh
+cat << EOT > /opt/database/ora_dbca.sh
+export LANG=c
+dbca
+EOT
+
+chmod a+x /opt/database/*.sh
