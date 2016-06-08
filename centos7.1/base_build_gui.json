@@ -12,6 +12,7 @@
         "virtualbox-iso": {
           "scripts": [
             "scripts/base1_provision.sh",
+            "scripts/gui_provision.sh",
             "scripts/base2_provision.sh"
           ]
         }
@@ -23,7 +24,7 @@
       "type": "vagrant",
       "override": {
         "virtualbox": {
-          "output": "base_centos7.box"
+          "output": "base_centos7_gui.box"
         }
       },
       "vagrantfile_template": "vagrantfile.template"
@@ -53,7 +54,7 @@
       "virtualbox_version_file": ".vbox_version",
       "vboxmanage": [
         ["modifyvm", "{{.Name}}", "--nic1", "nat"],
-        [ "modifyvm", "{{.Name}}", "--memory", "1000" ],
+        [ "modifyvm", "{{.Name}}", "--memory", "1800" ],
         [ "modifyvm", "{{.Name}}", "--cpus", "1" ]
       ]
     }
