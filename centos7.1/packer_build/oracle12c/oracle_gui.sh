@@ -53,7 +53,3 @@ cat << EOT > /opt/database/ora_inst_jpn.sh
 EOT
 
 chdmo a+x /opt/database/ora_inst_jpn.sh
-
-DBCA_PATH=$ORACLE_HOME/bin/dbca
-sed -i -e "s/JRE_DIR/###JRE_DIR/" $DBCA
-echo "JRE_DIR=$JRE_LOC" >> $DBCA
