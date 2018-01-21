@@ -31,7 +31,7 @@ case "$1" in
     fi
     echo -n $"Stopping Oracle Database:"
     su - $ORACLE_USER -c "$ORACLE_HOME/bin/lsnrctl stop"
-    su - $ORACLE_USER -c "$ORACLE_HOME/bin/dbshut"
+    su - $ORACLE_USER -c "$ORACLE_HOME/bin/dbshut $ORACLE_HOME"
     rm -f $LOCKFILE
     ;;
 'restart')
